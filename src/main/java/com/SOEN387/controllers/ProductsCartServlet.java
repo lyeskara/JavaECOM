@@ -20,15 +20,24 @@ public class ProductsCartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		            throws ServletException, IOException {
 		
-		 HttpSession session = request.getSession(false); 
-		 if(session == null) {
-		        // No session found; handle the situation as needed' 
-		 }
-		 String name = (String) session.getAttribute("name");
-		 if (name == null) {  
-	            // No user name found; handle the situation as needed
-
-		 }  
+		HttpSession session = request.getSession(false); // Get the session without creating a new one (use 'false')
+        String name = "";
+		try {
+		    if (session == null) {
+		        throw new IllegalStateException("No session found");
+		    }
+		    name = (String) session.getAttribute("name");
+		    if (name == null) {
+		        throw new IllegalArgumentException("No user name found");
+		    }
+	
+		} catch (IllegalStateException e) {
+		    // Handle the case where no session is found
+		    response.getWriter().write("Error: " + e.getMessage());
+		} catch (IllegalArgumentException e) {
+		    // Handle the case where no user name is found
+		    response.getWriter().write("Error: " + e.getMessage());
+		} 
 		 
 		 List<Product> userProducts = CartRepository.getCart(name);
 		 request.setAttribute("products", userProducts);

@@ -14,13 +14,35 @@
 <body>
  <% 
     Product product = (Product) request.getAttribute("product"); 
-    String sessionParams = (String)session.getAttribute("name");
- %>
-<p><%= product.getName() %> - <%= product.getDescription() %> - <%= product.getPrice() %></p>
+    String sessionCustomerParams = (String)session.getAttribute("name");
+    String sessionRoleParams = (String)session.getAttribute("role");
 
-<% if(!("staff".equals(sessionParams))) {%>
-    <button hx-post="http://localhost:8080/JavaECOM/cart/products/<%=product.getUrlSlug()%>"
-            hx-swap="OuterHTML"> Submit</button>
+ %>
+<%if(product != null){ %>
+     <p><%= product.getName() %> - <%= product.getDescription() %> - <%= product.getPrice() %></p>
+<%} %>
+
+<% if(!("staff".equals(sessionRoleParams))) {%>
+    <button hx-post="http://localhost:8080/JavaECOM/cart/products/<%=product.getUrlSlug()%>">Add To Your Cart</button>
 <% } %>
+
+<% if(("staff".equals(sessionRoleParams))) {%>
+      <form id="updateProductForm" action="http://localhost:8080/JavaECOM/products/<%=product.getUrlSlug()%>" method="post">
+        <input type="text" name="name" placeholder="Product Name">
+        <br>
+        <input type="text" name="description" placeholder="Product Description">
+        <br>
+        <input type="text" name="vendor" placeholder="Vendor">
+        <br>
+        <input type="number" name="price" placeholder="Price">
+        <br>
+        <input type="text" name="SKU" placeholder="SKU">
+        <br> 
+        <button type="submit">Update Product</button>
+    </form>
+<% } %>
+
+
+
 </body>
 </html>

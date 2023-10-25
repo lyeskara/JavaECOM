@@ -35,59 +35,79 @@ public class ProductServlet extends HttpServlet {
 	    }
 	 protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
-		 HttpSession session = request.getSession(); // Get the session without creating a new one
-		 if(session == null) {
-		        // No session found; handle the situation as needed'
-			 
-		 }
-		 String role = (String) session.getAttribute("role");
-		 if (role == null || !("staff".equals(role))) {  
-                 
-		 }
+		 HttpSession session = request.getSession(false); // Get the session without creating a new one (use 'false')
+	     String name = "";
+	     try {
+			    if (session == null) {
+			        throw new IllegalStateException("No session found");
+			    }
+			    name = (String) session.getAttribute("name");
+			    if (name == null) {
+			        throw new IllegalArgumentException("No user name found");
+			    }
+		
+			} catch (IllegalStateException e) {
+			    // Handle the case where no session is found
+			    response.getWriter().write("Error: " + e.getMessage());
+			} catch (IllegalArgumentException e) {
+			    // Handle the case where no user name is found
+			    response.getWriter().write("Error: " + e.getMessage());
+		}
+	        
 		 
-		 String urlSlug = request.getPathInfo();
+		 String pathInfo = request.getPathInfo();
+		 String urlSlug = pathInfo.substring(1);
+		 System.out.println("URL Slug: " + urlSlug); // Add this line
+
 		 Product product = ProductService.getProductByUrlSlug(urlSlug);
 		 
 		 String SKU = product.getSku();
-		 String name = request.getParameter("name");
+		 String productName = request.getParameter("name");
 		 String description = request.getParameter("description");
 		 String vendor = request.getParameter("vendor");
-		 double price = Double.parseDouble(request.getParameter("price"));
+		 double price = -1.1;
+		 if(!(request.getParameter("price").equals(""))){
+			 price = Double.parseDouble(request.getParameter("price"));
+		 }
+		 
 		  
-		 ProductService.updateProduct(SKU, name, description, price, vendor);
+		 ProductService.updateProduct(SKU, productName, description, price, vendor);
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Product.jsp");
+		 dispatcher.forward(request, response);
+		 
 		 
 }
-	 protected void doPut(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-		 
-		 HttpSession session = request.getSession(); // Get the session without creating a new one
-		 if(session == null) {
-		        // No session found; handle the situation as needed'
-			 
-			 
-		 }
-		 
-		 String role = (String) session.getAttribute("role");
-		 if (role == null || !("staff".equals(role))) {  
-
-		 }  
-	    }
-	 protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-	            throws ServletException, IOException {
-		  
-		 HttpSession session = request.getSession(false); // Get the session without creating a new one
-		 if(session == null) {
-		        // No session found; handle the situation as needed'
-			 
-			 
-		 }
-		 
-		 String role = (String) session.getAttribute("role");
-		 if (role == null || !("staff".equals(role))) {  
-
-		 }  
-		 
-	       
-	    }
+//	 protected void doPut(HttpServletRequest request, HttpServletResponse response)
+//	            throws ServletException, IOException {
+//		 
+//		 HttpSession session = request.getSession(); // Get the session without creating a new one
+//		 if(session == null) {
+//		        // No session found; handle the situation as needed'
+//			 
+//			 
+//		 }
+//		 
+//		 String role = (String) session.getAttribute("role");
+//		 if (role == null || !("staff".equals(role))) {  
+//
+//		 }  
+//	    }
+//	 protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+//	            throws ServletException, IOException {
+//		  
+//		 HttpSession session = request.getSession(false); // Get the session without creating a new one
+//		 if(session == null) {
+//		        // No session found; handle the situation as needed'
+//			 
+//			 
+//		 }
+//		 
+//		 String role = (String) session.getAttribute("role");
+//		 if (role == null || !("staff".equals(role))) {  
+//
+//		 }  
+//		 
+//	       
+//	    }
 
 }

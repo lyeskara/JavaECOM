@@ -35,6 +35,7 @@ public class DownloadServlet extends HttpServlet {
 	        ObjectMapper objectMapper = new ObjectMapper();
 	        String productsJson = objectMapper.writeValueAsString(allProducts);
 
+	        response.setCharacterEncoding("UTF-8"); // Set encoding to UTF-8
 	        response.setContentType("application/json");
 	        response.setHeader("Content-Disposition", "attachment; filename=products.json");
 

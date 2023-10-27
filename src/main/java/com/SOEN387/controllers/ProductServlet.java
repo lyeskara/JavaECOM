@@ -65,13 +65,15 @@ public class ProductServlet extends HttpServlet {
 		 String productName = request.getParameter("name");
 		 String description = request.getParameter("description");
 		 String vendor = request.getParameter("vendor");
+		 String image = request.getParameter("image");
+
 		 double price = -1.1;
 		 if(!(request.getParameter("price").equals(""))){
 			 price = Double.parseDouble(request.getParameter("price"));
 		 }
 		 
 		  
-		 ProductService.updateProduct(SKU, productName, description, price, vendor);
+		 ProductService.updateProduct(SKU, productName, description, price, vendor, image);
 		 RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Product.jsp");
 		 dispatcher.forward(request, response);
 		 

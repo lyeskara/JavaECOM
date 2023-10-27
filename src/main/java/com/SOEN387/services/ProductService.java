@@ -20,8 +20,8 @@ public class ProductService {
 	    	ProductRepository.CreateProduct(sku, name);
 	    }
 
-	    public static void updateProduct(String sku,  String name, String description, double price, String vendor) {
-	    	ProductRepository.UpdateProduct(sku, name, description, price, vendor );	    
+	    public static void updateProduct(String sku,  String name, String description, double price, String vendor, String image) {
+	    	ProductRepository.UpdateProduct(sku, name, description, price, vendor, image);	    
 	    }
 
 	    public static void deleteProduct(String urlSlug) {

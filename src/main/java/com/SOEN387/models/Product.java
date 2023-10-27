@@ -7,14 +7,16 @@ public class Product {
     private String urlSlug;
     private String sku;
     private double price;
+    private String image;
 
-    public Product(String name, String description, String vendor, String urlSlug, String sku, double price) {
+    public Product(String name, String description, String vendor, String urlSlug, String sku, double price, String image) {
         this.name = name;
         this.description = description;
         this.vendor = vendor;
         this.urlSlug = urlSlug;
         this.sku = sku;
         this.price = price;
+        this.image = image;
     }
     
     // deep copy constructor
@@ -26,6 +28,7 @@ public class Product {
           this.urlSlug = updateProduct.urlSlug;
           this.sku = updateProduct.sku;
           this.price = updateProduct.price;
+          this.image = updateProduct.image;
 	}
     
     // Getters and setters for all attributes
@@ -77,5 +80,13 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

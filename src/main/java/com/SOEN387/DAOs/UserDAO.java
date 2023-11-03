@@ -15,6 +15,37 @@ public class UserDAO {
     public UserDAO() {
         connection = DatabaseConnection.getConnection();
     }
+    
+    public void createUser(String username, String password) {
+        String query = "INSERT INTO users (name, password, isAdmin) VALUES (?, ?, FALSE)";
+        
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean userExists(String username) {
+        String query = "SELECT COUNT(*) AS count FROM users WHERE name = ?";
+        
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, username);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt("count");
+                    return count > 0; // If count > 0, a user with the username exists.
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false; // Return false if an error occurs or no user with the username is found.
+    }
+
 
     public User findByUsername(String username) {
         User user = null;

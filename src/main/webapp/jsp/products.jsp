@@ -28,6 +28,8 @@
 <nav class="Navbar">
     <a href="/JavaECOM" class="link">Home</a>
     <a href="products" class="link">Products</a>
+    <a href="signup" class="link">Signup</a>
+    
     
     <% if("staff".equals(sessionRoleParams)) { %>
         <a href="http://localhost:8080/JavaECOM/logout" class="link">Logout</a>
@@ -60,7 +62,7 @@
         </div>
     <% } %>
     
-                </div>
+    </div>
     
         
 <% if(("staff".equals(sessionRoleParams))) {%>

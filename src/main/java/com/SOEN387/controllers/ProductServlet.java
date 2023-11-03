@@ -2,8 +2,8 @@ package com.SOEN387.controllers;
 
 import java.io.IOException;
 
+
 import com.SOEN387.models.Product;
-import com.SOEN387.repositories.ProductRepository;
 import com.SOEN387.services.ProductService;
 
 import jakarta.servlet.RequestDispatcher;
@@ -19,13 +19,19 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/products/*")
 public class ProductServlet extends HttpServlet {
 	
+	 private ProductService productService;
+	 
+	 public ProductServlet() {
+		 productService = new ProductService();
+	 }
+	
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
 		 
 		  String urlSlugPath = request.getPathInfo();
 		  String urlSlug = urlSlugPath.substring(1);
 		 
-		  Product product = ProductService.getProductByUrlSlug(urlSlug);
+		  Product product = productService.getProductByUrlSlug(urlSlug);
 		  
 		  request.setAttribute("product", product);
 		  
@@ -35,6 +41,8 @@ public class ProductServlet extends HttpServlet {
 	    }
 	 protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
+		 
+		 
 		 HttpSession session = request.getSession(false); // Get the session without creating a new one (use 'false')
 	     String name = "";
 	     try {
@@ -59,21 +67,28 @@ public class ProductServlet extends HttpServlet {
 		 String urlSlug = pathInfo.substring(1);
 		 System.out.println("URL Slug: " + urlSlug); // Add this line
 
-		 Product product = ProductService.getProductByUrlSlug(urlSlug);
+		 Product product = productService.getProductByUrlSlug(urlSlug);
 		 
 		 String SKU = product.getSku();
+		 
 		 String productName = request.getParameter("name");
 		 String description = request.getParameter("description");
 		 String vendor = request.getParameter("vendor");
 		 String image = request.getParameter("image");
-
+		
+		 productName = (productName != null) ? productName : "";
+		 description = (description != null) ? description : "";
+		 vendor = (vendor != null) ? vendor : "";
+		 image = (image != null) ? image : "";
+		 
 		 double price = -1.1;
 		 if(!(request.getParameter("price").equals(""))){
 			 price = Double.parseDouble(request.getParameter("price"));
 		 }
 		 
 		  
-		 ProductService.updateProduct(SKU, productName, description, price, vendor, image);
+		 productService.updateProduct(SKU, productName, description, price, vendor, image);
+		 
 		 RequestDispatcher dispatcher = request.getRequestDispatcher("/jsp/Product.jsp");
 		 dispatcher.forward(request, response);
 		 

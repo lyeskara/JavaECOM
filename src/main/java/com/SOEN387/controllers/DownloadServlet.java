@@ -4,10 +4,10 @@ import java.io.IOException;
 
 
 
+
 import java.util.List;
 
 import com.SOEN387.models.Product;
-import com.SOEN387.repositories.ProductRepository;
 import com.SOEN387.services.ProductService;
 
 import jakarta.servlet.ServletException;
@@ -25,11 +25,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @WebServlet("/products/download")
 public class DownloadServlet extends HttpServlet {
 	
+	 private ProductService productService;
+	 
+	 public DownloadServlet() {
+		 productService = new ProductService();
+	 }
 	 
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException, JsonProcessingException  {
 		  
-		    List<Product> allProducts = ProductService.getAllProducts();
+		    List<Product> allProducts = productService.getAllProducts();
 		   
 		    // Convert the products list to JSON
 	        ObjectMapper objectMapper = new ObjectMapper();

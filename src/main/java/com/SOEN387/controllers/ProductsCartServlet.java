@@ -1,11 +1,11 @@
 package com.SOEN387.controllers;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import com.SOEN387.models.Product;
-import com.SOEN387.repositories.CartRepository;
-
+import com.SOEN387.services.CartService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,9 +16,17 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/cart/products")
 public class ProductsCartServlet extends HttpServlet {
+	
+	private CartService cartService;
+	
+	public ProductsCartServlet() {
+		cartService = new CartService();
+	}
 		 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 		            throws ServletException, IOException {
+		
+		
 		
 		HttpSession session = request.getSession(false); // Get the session without creating a new one (use 'false')
         String name = "";
@@ -39,7 +47,7 @@ public class ProductsCartServlet extends HttpServlet {
 		    response.getWriter().write("Error: " + e.getMessage());
 		} 
 		 
-		 List<Product> userProducts = CartRepository.getCart(name);
+		 List<Product> userProducts = cartService.getCart(name);
 		 request.setAttribute("products", userProducts);
 		 request.setAttribute("name", name);
 

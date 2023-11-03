@@ -2,8 +2,9 @@ package com.SOEN387.controllers;
 
 import java.io.IOException;
 
-import com.SOEN387.repositories.CartRepository;
-import com.SOEN387.repositories.ProductRepository;
+
+import com.SOEN387.services.CartService;
+import com.SOEN387.services.ProductService;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -16,6 +17,15 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/cart/products/*")
 public class ProductFromCartServlet extends HttpServlet {
+	
+	
+	private ProductService productService;
+	private CartService cartService;
+	
+	public ProductFromCartServlet() {
+		productService = new ProductService();
+		cartService = new CartService();
+	}
 	 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
@@ -44,8 +54,8 @@ public class ProductFromCartServlet extends HttpServlet {
 		 
 		 String PathInfo = request.getPathInfo();
 		 String urlSlug = PathInfo.substring(1);
-		 String SKU = (ProductRepository.getProductByUrlSlug(urlSlug)).getSku();
-		 CartRepository.AddProductToCart(name, SKU);
+		 String SKU = (productService.getProductByUrlSlug(urlSlug)).getSku();
+		 cartService.addProductToCart(name, SKU);
 		 
 		 // jsp work here
 		 
@@ -73,9 +83,9 @@ public class ProductFromCartServlet extends HttpServlet {
 		 
 		 String pathInfo = request.getPathInfo();
 		 String urlSlug = pathInfo.substring(1);
-		 String SKU = (ProductRepository.getProductByUrlSlug(urlSlug)).getSku();
+		 String SKU = (productService.getProductByUrlSlug(urlSlug)).getSku();
 
-		 CartRepository.RemoveProductFomCart(name, SKU);
+		 cartService.removeProductFromCart(name, SKU);
 		 
 		 // jsp
 		 		 

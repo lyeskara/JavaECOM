@@ -27,8 +27,8 @@ public class AuthenticationServlet extends HttpServlet {
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(1800); // Set the session timeout to 30 minutes (1800 seconds)
 
-
-    	if(passcode == null || (passcode.length() > 0 && !("secret".equals(passcode)) )) {
+        // (passcode.length() > 0 && !("secret".equals(passcode)) )
+    	if(passcode == null) {
             response.sendRedirect("/login?error=true");
         }
         
@@ -39,7 +39,7 @@ public class AuthenticationServlet extends HttpServlet {
             
         } 
         
-        if (passcode.isEmpty()) {
+        else {
         	
             session.setAttribute("name", name);
             response.sendRedirect("/JavaECOM/products"); 

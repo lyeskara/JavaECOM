@@ -18,15 +18,23 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/products")
 public class ProductsServlet extends HttpServlet {
 	
+	private ProductService productService;
 	 
-
+	public ProductsServlet() {
+		 productService = new ProductService();
+	 }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
-		    List<Product> products = ProductService.getAllProducts();
+		    List<Product> products = productService.getAllProducts();
 		    request.setAttribute("products", products);
 		    RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/products.jsp");
 		    dispatcher.forward(request, response);
 	       
 	    }
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+	    
+    }
 
 }

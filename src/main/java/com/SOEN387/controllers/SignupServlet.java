@@ -78,7 +78,7 @@ public class SignupServlet extends HttpServlet {
 
     private void loadPasscodesFromFile() {
         try {
-            File file = new File("C:\\Users\\lyesk\\eclipse-workspace\\JavaECOM\\src\\main\\java\\com\\SOEN387\\user_management.json"); // Specify the path to your JSON file
+            File file = new File("C:\\Users\\Mohammed\\Documents\\JavaECOM\\src\\main\\java\\com\\SOEN387\\user_management.json"); // Specify the path to your JSON file
             if (file.exists()) {
                 passcodes = objectMapper.readValue(file, HashMap.class);
             } 
@@ -89,7 +89,7 @@ public class SignupServlet extends HttpServlet {
 
     private void savePasscodesToFile() {
         try {
-            File file = new File("C:\\Users\\lyesk\\eclipse-workspace\\JavaECOM\\src\\main\\java\\com\\SOEN387\\user_management.json"); // Specify the path to your JSON file
+            File file = new File("C:\\Users\\Mohammed\\Documents\\JavaECOM\\src\\main\\java\\com\\SOEN387\\user_management.json"); // Specify the path to your JSON file
             objectMapper.writeValue(file, passcodes);
         } catch (IOException e) {
             e.printStackTrace();

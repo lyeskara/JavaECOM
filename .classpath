@@ -17,17 +17,22 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/lyesk/Downloads/jackson-databind-2.15.0.jar">
+	<classpathentry kind="lib" path="C:/Users/Mohammed/Documents/JavaECOM/src/main/java/jars/jackson-databind-2.15.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/lyesk/Downloads/jackson-core-2.15.0.jar">
+	<classpathentry kind="lib" path="C:/Users/Mohammed/Documents/JavaECOM/src/main/java/jars/jackson-core-2.15.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/lyesk/Downloads/jackson-annotations-2.15.0.jar">
+	<classpathentry kind="lib" path="C:/Users/Mohammed/Documents/JavaECOM/src/main/java/jars/jackson-annotations-2.15.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Mohammed/Documents/JavaECOM/src/main/java/jars/mysql-connector-j-8.2.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

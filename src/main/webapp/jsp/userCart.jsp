@@ -7,25 +7,32 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Cart</title>
-<script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
-
+<!-- Include other scripts and styles if necessary -->
 </head>
 <body>
-  <h1><%= session.getAttribute("name") %></h1> 
-   <% @SuppressWarnings("unchecked") // Suppress the warning
-           List<Product> products = (List<Product>) request.getAttribute("products");  
-           String sessionRoleParams = (String)session.getAttribute("role");
-          %>
-       <%if(products != null){ %>   
-        <% for (Product product : products) { %>
-            <li> <%= product.getName()%> - <%= product.getDescription() %> - <%= product.getPrice() %></li>
-            <% if(!("staff".equals(sessionRoleParams)) || "".equals(sessionRoleParams)) {%>
-               <button hx-delete="http://localhost:8080/JavaECOM/cart/products/<%=product.getUrlSlug()%>">delete from the cart</button>
-            <% } %>
-               
-        <%}%>
-       <%} %>
-        
-      
+  <h1><%= session.getAttribute("name") %>'s Cart</h1>
+  <% 
+      List<Product> products = (List<Product>) request.getAttribute("products");  
+      String sessionRoleParams = (String)session.getAttribute("role");
+  %>
+  <% if (products != null && !products.isEmpty()) { %>   
+      <form action="orders" method="post">
+          <ul>
+              <% for (Product product : products) { %>
+                  <li>
+                      <%= product.getName()%> - <%= product.getDescription() %> - $<%= product.getPrice() %>
+                      <% if (sessionRoleParams == null || !("staff".equals(sessionRoleParams))) { %>
+                          <!-- Assuming hx-delete is part of your setup to handle AJAX requests -->
+                          <button hx-delete="http://localhost:8080/JavaECOM/cart/products/<%=product.getUrlSlug()%>">Remove</button>
+                      <% } %>
+                  </li>
+              <% } %>
+          </ul>
+          <!-- Checkout button -->
+          <input type="submit" value="Order" />
+      </form>
+  <% } else { %>
+      <p>Your cart is empty.</p>
+  <% } %>
 </body>
 </html>

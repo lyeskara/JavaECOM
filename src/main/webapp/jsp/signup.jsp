@@ -18,7 +18,7 @@
     	<a href="/JavaECOM" class="link">Home</a>
     	<a href="products" class="link">Products</a>
     	<a href="login" class="link">Login</a>
-    	<a href="signup" class="link">Signup</a>
+    	<a href="signup" class="link">Sign Up</a>
     	
 </nav>
 

@@ -82,8 +82,8 @@ public class OrdersServlet extends HttpServlet {
         return totalPrice;
     }
     
-    private int getUserId(String username) {
-        User user = userService.findByUsername(username);
+    private int getUserId(String passcode) {
+        User user = userService.findByPasscode(passcode);
         return user != null ? user.getId() : -1;
     }
 }

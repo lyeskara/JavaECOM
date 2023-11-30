@@ -22,23 +22,23 @@ public class CartService {
     }
 	
 	
-    public List<Product> getCart(String user) {
+    public List<Product> getCart(String passcode) {
        
-        int userId = userDAO.getUserIDByUsername(user);
+        int userId = userDAO.getUserIDByPasscode(passcode);
         if(userId == -1) {
         	return null;
         }
         return cartDAO.getCartItems(userId);
     }
 	
-    public void SetProductQuantityInCart(String user, String sku, int Quantity) {
+    public void SetProductQuantityInCart(String passcode, String sku, int Quantity) {
 		/*
 		 * Sets the quantity of a given product in the cart
            associated with the user. If the quantity is greater than zero and if no cart is associated with the
            user, create one first.
 		 * */
     	
-    	int userId = userDAO.getUserIDByUsername(user);
+    	int userId = userDAO.getUserIDByPasscode(passcode);
         Product product = productDAO.getProduct(sku);
         int productId = productDAO.getProductIDByName(product.getName());
         if (product != null && userId >= 0 && productId >= 0) {
@@ -48,9 +48,9 @@ public class CartService {
 		
 	}
 	
-	 public void addProductToCart(String user, String sku) {
+	 public void addProductToCart(String passcode, String sku) {
 	       
-	        int userId = userDAO.getUserIDByUsername(user);
+	        int userId = userDAO.getUserIDByPasscode(passcode);
 	        Product product = productDAO.getProduct(sku);
             int productId = productDAO.getProductIDByName(product.getName());
 
@@ -59,9 +59,9 @@ public class CartService {
 	        }
 	    }
 	
-	 public void removeProductFromCart(String user, String sku) {
+	 public void removeProductFromCart(String passcode, String sku) {
 	        
-	        int userId = userDAO.getUserIDByUsername(user);
+	        int userId = userDAO.getUserIDByPasscode(passcode);
 	        Product product = productDAO.getProduct(sku);
             int productId = productDAO.getProductIDByName(product.getName());
             

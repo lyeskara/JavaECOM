@@ -8,7 +8,7 @@ public class DatabaseConnection {
     // JDBC URL, username, and password of MySQL server
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/servletecom";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "December2023";
+    private static final String DB_PASSWORD = "servletproject";
 
     private static Connection connection = null;
 

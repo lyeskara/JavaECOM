@@ -36,11 +36,11 @@
 <div class ="wrapper">
 <form action="signup" method="post">
 
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" required>
+   <label for="passcode">Passcode</label>
+    <input type="text" id="passcode" name="passcode" required>
     <br>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password">
+    <label for="admin">admin</label>
+    <input type="password" id="admin" name="admin">
     <br>
     <input type="submit" value="SIGNUP">
 </form>

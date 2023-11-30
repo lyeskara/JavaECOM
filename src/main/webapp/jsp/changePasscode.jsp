@@ -35,9 +35,9 @@
 <div class ="wrapper">
 <form  method="post">
 
-    <label for="passcode">Passcode</label>
-    <input type="text" id="passcode" name="passcode" required>
-    <input type="submit" value="LOGIN">
+    <label for="Passcode">change Passcode</label>
+    <input type="text" id="Passcode" name="Passcode" required>
+    <input type="submit" value="Submit">
 </form>
 </div>
 
